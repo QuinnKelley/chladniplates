@@ -1,0 +1,1394 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     59232,       1386]
+NotebookOptionsPosition[     58802,       1370]
+NotebookOutlinePosition[     59143,       1385]
+CellTagsIndexPosition[     59100,       1382]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"xx", ",", "yy", ",", 
+       RowBox[{"opt", "=", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"PerformanceGoal", "\[Rule]", "\"\<Quality\>\""}], ",", 
+          RowBox[{"ImageMargins", "\[Rule]", "1"}]}], "}"}]}], ",", "r", ",", 
+       "r0", ",", "c0", ",", "a00", ",", "b00", ",", "color0"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"c0", "=", 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"tension", "*", 
+         RowBox[{"1000", "/", 
+          RowBox[{"(", 
+           RowBox[{"\[Rho]0", "*", 
+            RowBox[{"10", "^", "6"}]}], ")"}]}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"a00", "=", 
+       RowBox[{"a0", "/", "1000"}]}], ";", " ", 
+      RowBox[{"(*", 
+       RowBox[{"mm", " ", "to", " ", "meter"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"b00", "=", 
+       RowBox[{"b0", "/", "1000"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"r", "=", 
+       RowBox[{"w", "[", 
+        RowBox[{
+        "x", ",", "y", ",", "a00", ",", "b00", ",", "m0", ",", "n0", ",", 
+         "c0", ",", "t", ",", "t0"}], "]"}]}], ";", " ", 
+      RowBox[{"(*", 
+       RowBox[{
+       "saved", " ", "for", " ", "tooltip", " ", "to", " ", "show", " ", 
+        "analytical", " ", "form"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"r0", "=", 
+       RowBox[{"r", "/.", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"t", "\[Rule]", "t0"}], ",", 
+          RowBox[{"x", "\[Rule]", "xx"}], ",", 
+          RowBox[{"y", "\[Rule]", "yy"}]}], "}"}]}]}], ";", " ", 
+      RowBox[{"(*", 
+       RowBox[{"used", " ", "for", " ", "plotting"}], "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"Which", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"color", "\[Equal]", "1"}], ",", 
+        RowBox[{"color0", "=", "Automatic"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"color", "\[Equal]", "2"}], ",", 
+        RowBox[{"color0", "=", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ColorData", "[", "\"\<TemperatureMap\>\"", "]"}], "[", 
+            "#3", "]"}], "&"}], ")"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"color", "\[Equal]", "3"}], ",", 
+        RowBox[{"color0", "=", 
+         RowBox[{"Function", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"x", ",", "y", ",", "z"}], "}"}], ",", 
+           RowBox[{"Hue", "[", "z", "]"}]}], "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"color", "\[Equal]", "4"}], ",", 
+        RowBox[{"color0", "=", "\"\<BlueGreenYellow\>\""}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"color", "\[Equal]", "5"}], ",", 
+        RowBox[{"color0", "=", "\"\<Rainbow\>\""}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"color", "\[Equal]", "6"}], ",", 
+        RowBox[{"color0", "=", 
+         RowBox[{"Function", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"x", ",", "y"}], "}"}], ",", 
+           RowBox[{
+            RowBox[{"ColorData", "[", "\"\<NeonColors\>\"", "]"}], "[", "y", 
+            "]"}]}], "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Grid", "[", 
+       RowBox[{
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"plotType", "\[Equal]", "\"\<contour\>\""}], ",", 
+           "\[IndentingNewLine]", "\[IndentingNewLine]", 
+           RowBox[{"ContourPlot", "[", 
+            RowBox[{
+             RowBox[{"Evaluate", "@", "r0"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"xx", ",", "0", ",", "a00"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"yy", ",", "0", ",", "b00"}], "}"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Evaluate", "@", "opt"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"ImageSize", "\[Rule]", 
+              RowBox[{"{", 
+               RowBox[{"350", ",", "436"}], "}"}]}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"FrameLabel", "\[Rule]", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"y", ",", "None"}], "}"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"x", ",", "None"}], "}"}]}], "}"}]}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"ColorFunction", "\[Rule]", "\"\<Pastel\>\""}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"ImagePadding", "\[Rule]", "30"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"FrameTicksStyle", "\[Rule]", "8"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Contours", "\[Rule]", "contoursLines"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", ",", "SpanFromLeft"}], "}"}], 
+         "\[IndentingNewLine]", "}"}], ",", 
+        RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+        RowBox[{"Spacings", "\[Rule]", "0"}]}], "\[IndentingNewLine]", 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Text", "@", 
+    RowBox[{"Grid", "[", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Style", "[", 
+           RowBox[{
+            RowBox[{"TraditionalForm", "[", 
+             RowBox[{
+              RowBox[{"Defer", "[", 
+               RowBox[{
+                RowBox[{"D", "[", 
+                 RowBox[{
+                  RowBox[{"u", "[", 
+                   RowBox[{"x", ",", "y", ",", "t"}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"x", ",", "2"}], "}"}]}], "]"}], "+", 
+                RowBox[{"D", "[", 
+                 RowBox[{
+                  RowBox[{"u", "[", 
+                   RowBox[{"x", ",", "y", ",", "t"}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"y", ",", "2"}], "}"}]}], "]"}]}], "]"}], "==", 
+              RowBox[{"Defer", "[", 
+               RowBox[{
+                RowBox[{"HoldForm", "[", 
+                 RowBox[{"1", "/", 
+                  RowBox[{"c", "^", "2"}]}], "]"}], " ", 
+                RowBox[{"D", "[", 
+                 RowBox[{
+                  RowBox[{"u", "[", 
+                   RowBox[{"x", ",", "y", ",", "t"}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"t", ",", "2"}], "}"}]}], "]"}]}], "]"}]}], "]"}], 
+            ",", "14"}], "]"}], ",", "SpanFromLeft"}], "\[IndentingNewLine]", 
+         "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{"Row", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Style", "[", 
+                 RowBox[{
+                  RowBox[{"TraditionalForm", "[", 
+                   RowBox[{"HoldForm", "[", 
+                    RowBox[{"\[Lambda]", "=", 
+                    RowBox[{"c", " ", "\[Pi]", " ", 
+                    SqrtBox[
+                    RowBox[{
+                    FractionBox[
+                    SuperscriptBox["m", "2"], 
+                    SuperscriptBox["a", "2"]], "+", 
+                    FractionBox[
+                    SuperscriptBox["n", "2"], 
+                    SuperscriptBox["b", "2"]]}]]}]}], "]"}], "]"}], ",", 
+                  "14"}], "]"}], ",", 
+                RowBox[{"Spacer", "[", "3", "]"}], ",", "\"\<(hz)\>\""}], 
+               "}"}], "]"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+             "}"}], "\[IndentingNewLine]", "}"}], ",", 
+           RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+           RowBox[{"Spacings", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{".1", ",", ".1"}], "}"}]}]}], "\[IndentingNewLine]", 
+          "]"}], "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Grid", "[", 
+           RowBox[{
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{"Grid", "[", 
+               RowBox[{
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"Style", "[", 
+                    RowBox[{"\"\<T\>\"", ",", "Italic", ",", "12"}], "]"}], 
+                    ",", "\[IndentingNewLine]", 
+                    RowBox[{"Manipulator", "[", 
+                    RowBox[{
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"tension", ",", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"tension", "=", "#"}], "}"}], "&"}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.1", ",", "10", ",", "0.1"}], "}"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "Small"}], ",", 
+                    RowBox[{"ContinuousAction", "\[Rule]", "True"}]}], "]"}], 
+                    ",", 
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"padIt2", "[", 
+                    RowBox[{"tension", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"3", ",", "1"}], "}"}]}], "]"}], "]"}], ",", 
+                    "\"\<N/mm\>\""}], "\[IndentingNewLine]", "}"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"Style", "[", 
+                    RowBox[{"\[Rho]", ",", "Italic", ",", "12"}], "]"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"Manipulator", "[", 
+                    RowBox[{
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"\[Rho]0", ",", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"\[Rho]0", "=", "#"}], "}"}], "&"}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.1", ",", "2", ",", "0.1"}], "}"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "Small"}], ",", 
+                    RowBox[{"ContinuousAction", "\[Rule]", "True"}]}], "]"}], 
+                    ",", 
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"padIt2", "[", 
+                    RowBox[{"\[Rho]0", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"2", ",", "1"}], "}"}]}], "]"}], "]"}], ",", 
+                    "\"\<kg/\!\(\*SuperscriptBox[\(mm\), \(2\)]\)\>\""}], 
+                   "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"Style", "[", 
+                    RowBox[{"\"\<a\>\"", ",", "Italic", ",", "12"}], "]"}], 
+                    ",", "\[IndentingNewLine]", 
+                    RowBox[{"Manipulator", "[", 
+                    RowBox[{
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"a0", ",", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"a0", "=", "#"}], "}"}], "&"}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"10", ",", "1000", ",", "1"}], "}"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "Small"}], ",", 
+                    RowBox[{"ContinuousAction", "\[Rule]", "True"}]}], "]"}], 
+                    ",", 
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"padIt2", "[", 
+                    RowBox[{"a0", ",", "4"}], "]"}], "]"}], ",", 
+                    "\"\<mm\>\""}], "\[IndentingNewLine]", "}"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"Style", "[", 
+                    RowBox[{"\"\<b\>\"", ",", "Italic", ",", "12"}], "]"}], 
+                    ",", "\[IndentingNewLine]", 
+                    RowBox[{"Manipulator", "[", 
+                    RowBox[{
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"b0", ",", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"b0", "=", "#"}], "}"}], "&"}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"10", ",", "1000", ",", "1"}], "}"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "Small"}], ",", 
+                    RowBox[{"ContinuousAction", "\[Rule]", "True"}]}], "]"}], 
+                    ",", 
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"padIt2", "[", 
+                    RowBox[{"b0", ",", "4"}], "]"}], "]"}], ",", 
+                    "\"\<mm\>\""}], "\[IndentingNewLine]", "}"}]}], 
+                 "\[IndentingNewLine]", "}"}], ",", 
+                RowBox[{"Spacings", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{".4", ",", "0"}], "}"}]}], ",", 
+                RowBox[{"Alignment", "\[Rule]", "Left"}]}], 
+               "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "}"}], 
+             "\[IndentingNewLine]", "}"}], ",", 
+            RowBox[{"Spacings", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{".5", ",", ".6"}], "}"}]}], ",", 
+            RowBox[{"Alignment", "\[Rule]", "Center"}]}], 
+           "\[IndentingNewLine]", "]"}], ",", "SpanFromLeft"}], 
+         "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{"Grid", "[", 
+              RowBox[{
+               RowBox[{"{", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"Item", "[", 
+                    RowBox[{
+                    RowBox[{"Style", "[", 
+                    RowBox[{"\"\<modes to excite\>\"", ",", "12"}], "]"}], 
+                    ",", 
+                    RowBox[{"Alignment", "\[Rule]", "Center"}]}], "]"}], ",", 
+                   "SpanFromLeft"}], "}"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"{", "\[IndentingNewLine]", 
+                  RowBox[{"Grid", "[", 
+                   RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Style", "[", 
+                    RowBox[{"\"\<m\>\"", ",", "Italic", ",", "12"}], "]"}], 
+                    ",", "\[IndentingNewLine]", 
+                    RowBox[{"TogglerBar", "[", 
+                    RowBox[{
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"m0", ",", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"m0", "=", "#"}], "}"}], "&"}]}], "]"}], ",", 
+                    RowBox[{"Range", "[", "5", "]"}]}], "]"}]}], 
+                    "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Style", "[", 
+                    RowBox[{"\"\<n\>\"", ",", "Italic", ",", "12"}], "]"}], 
+                    ",", "\[IndentingNewLine]", 
+                    RowBox[{"TogglerBar", "[", 
+                    RowBox[{
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"n0", ",", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"n0", "=", "#"}], "}"}], "&"}]}], "]"}], ",", 
+                    RowBox[{"Range", "[", "5", "]"}]}], "]"}]}], 
+                    "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", 
+                    "}"}], ",", 
+                    RowBox[{"Spacings", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{".3", ",", ".2"}], "}"}]}], ",", 
+                    RowBox[{"Alignment", "\[Rule]", "Left"}]}], 
+                   "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+                  "}"}]}], "\[IndentingNewLine]", "}"}], ",", 
+               RowBox[{"Spacings", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{".5", ",", ".6"}], "}"}]}], ",", 
+               RowBox[{"Alignment", "\[Rule]", "Center"}]}], 
+              "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "}"}], 
+            "\[IndentingNewLine]", "}"}], ",", 
+           RowBox[{"Spacings", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{".3", ",", ".6"}], "}"}]}], ",", 
+           RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+           RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+           RowBox[{"FrameStyle", "->", 
+            RowBox[{"Directive", "[", 
+             RowBox[{
+              RowBox[{"Thickness", "[", ".001", "]"}], ",", "Gray"}], 
+             "]"}]}]}], "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+         "}"}], "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Grid", "[", 
+           RowBox[{
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{"Grid", "[", 
+               RowBox[{
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{"{", "\[IndentingNewLine]", 
+                  RowBox[{
+                   RowBox[{"Text", "@", "\"\<contour lines\>\""}], ",", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"Manipulator", "[", 
+                    RowBox[{
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"contoursLines", ",", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"contoursLines", "=", "#"}], "}"}], "&"}]}], 
+                    "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"1", ",", "16", ",", "1"}], "}"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "Small"}], ",", 
+                    RowBox[{"ContinuousAction", "\[Rule]", "True"}]}], "]"}], 
+                   ",", 
+                   RowBox[{"Dynamic", "[", 
+                    RowBox[{"padIt2", "[", 
+                    RowBox[{"contoursLines", ",", "2"}], "]"}], "]"}], ",", 
+                   "\"\<\>\""}], "\[IndentingNewLine]", "}"}], 
+                 "\[IndentingNewLine]", "}"}], ",", 
+                RowBox[{"Spacings", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{".3", ",", ".1"}], "}"}]}], ",", 
+                RowBox[{"Alignment", "\[Rule]", "Left"}]}], 
+               "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "}"}], 
+             "\[IndentingNewLine]", "}"}], ",", 
+            RowBox[{"Spacings", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{".5", ",", ".6"}], "}"}]}], ",", 
+            RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+            RowBox[{"Frame", "\[Rule]", "False"}]}], "]"}], ",", 
+          "SpanFromLeft"}], "\[IndentingNewLine]", "}"}]}], 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", "}"}], ",", 
+      RowBox[{"Alignment", "\[Rule]", "Center"}], ",", 
+      RowBox[{"Spacings", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0.5", ",", ".4"}], "}"}]}], ",", 
+      RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+      RowBox[{"FrameStyle", "->", 
+       RowBox[{"Directive", "[", 
+        RowBox[{
+         RowBox[{"Thickness", "[", ".001", "]"}], ",", "Gray"}], "]"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"color", ",", "1"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"tension", ",", "0.1"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Rho]0", ",", "1"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"opacity", ",", ".8"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"yMax", ",", "1.6"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t0", ",", "0"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a0", ",", "100"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"b0", ",", "100"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"m0", ",", 
+       RowBox[{"{", "1", "}"}]}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n0", ",", 
+       RowBox[{"{", "1", "}"}]}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"meshLines", ",", "10"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"plotType", ",", "\"\<3D\>\""}], "}"}], ",", "None"}], "}"}], 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"contoursLines", ",", "10"}], "}"}], ",", "None"}], "}"}], ",", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"SynchronousUpdating", "\[Rule]", "False"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Alignment", "\[Rule]", "Center"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"ImageMargins", "\[Rule]", "2"}], ",", 
+   RowBox[{"(*", "important", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"FrameMargins", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"SynchronousInitialization", "\[Rule]", "True"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ContinuousAction", "\[Rule]", "False"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Alignment", "->", "Center"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Paneled", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Frame", "\[Rule]", "False"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"AutorunSequencing", "\[Rule]", " ", "Automatic"}], ",", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"ControlPlacement", "\[Rule]", "Left"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Initialization", "\[RuleDelayed]", "\[IndentingNewLine]", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"integerStrictPositive", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"IntegerQ", "[", "#", "]"}], "&&", 
+          RowBox[{"#", ">", "0"}]}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"integerPositive", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"IntegerQ", "[", "#", "]"}], "&&", 
+          RowBox[{"#", "\[GreaterEqual]", "0"}]}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"numericStrictPositive", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Element", "[", 
+           RowBox[{"#", ",", "Reals"}], "]"}], "&&", 
+          RowBox[{"#", ">", "0"}]}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"numericPositive", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Element", "[", 
+           RowBox[{"#", ",", "Reals"}], "]"}], "&&", 
+          RowBox[{"#", "\[GreaterEqual]", "0"}]}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"numericStrictNegative", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Element", "[", 
+           RowBox[{"#", ",", "Reals"}], "]"}], "&&", 
+          RowBox[{"#", "<", "0"}]}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"numericNegative", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Element", "[", 
+           RowBox[{"#", ",", "Reals"}], "]"}], "&&", 
+          RowBox[{"#", "\[LessEqual]", "0"}]}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bool", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Element", "[", 
+          RowBox[{"#", ",", "Booleans"}], "]"}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"numeric", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Element", "[", 
+          RowBox[{"#", ",", "Reals"}], "]"}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"integer", "=", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Element", "[", 
+          RowBox[{"#", ",", "Integers"}], "]"}], "&"}], ")"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"helper", " ", "function", " ", "for", " ", "formatting"}], 
+       "             ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"padIt1", "[", 
+        RowBox[{
+         RowBox[{"v_", "?", "numeric"}], ",", "f_List"}], "]"}], ":=", 
+       RowBox[{"AccountingForm", "[", 
+        RowBox[{
+         RowBox[{"Chop", "[", "v", "]"}], " ", ",", "f", ",", 
+         RowBox[{"NumberSigns", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"\"\<-\>\"", ",", "\"\<+\>\""}], "}"}]}], ",", 
+         RowBox[{"NumberPadding", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"\"\<0\>\"", ",", "\"\<0\>\""}], "}"}]}], ",", 
+         RowBox[{"SignPadding", "\[Rule]", "True"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"helper", " ", "function", " ", "for", " ", "formatting"}], 
+       "             ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"padIt2", "[", 
+        RowBox[{
+         RowBox[{"v_", "?", "numeric"}], ",", "f_List"}], "]"}], ":=", 
+       RowBox[{"AccountingForm", "[", 
+        RowBox[{
+         RowBox[{"Chop", "[", "v", "]"}], " ", ",", "f", ",", 
+         RowBox[{"NumberSigns", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"\"\<\>\"", ",", "\"\<\>\""}], "}"}]}], ",", 
+         RowBox[{"NumberPadding", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"\"\<0\>\"", ",", "\"\<0\>\""}], "}"}]}], ",", 
+         RowBox[{"SignPadding", "\[Rule]", "True"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"padIt2", "[", 
+        RowBox[{
+         RowBox[{"v_", "?", "numeric"}], ",", "f_Integer"}], "]"}], ":=", 
+       RowBox[{"AccountingForm", "[", 
+        RowBox[{
+         RowBox[{"Chop", "[", "v", "]"}], " ", ",", "f", ",", 
+         RowBox[{"NumberSigns", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"\"\<\>\"", ",", "\"\<\>\""}], "}"}]}], ",", 
+         RowBox[{"NumberPadding", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"\"\<0\>\"", ",", "\"\<0\>\""}], "}"}]}], ",", 
+         RowBox[{"SignPadding", "\[Rule]", "True"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"w", "[", 
+        RowBox[{
+        "x_", ",", "y_", ",", "a_", ",", "b_", ",", "mm_", ",", "nn_", ",", 
+         "c_", ",", "t_", ",", "t0_"}], "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"m", ",", "n", ",", "f"}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Sum", "[", 
+          RowBox[{
+           RowBox[{"Sum", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"MemberQ", "[", 
+                 RowBox[{"mm", ",", "m"}], "]"}], "&&", 
+                RowBox[{"MemberQ", "[", 
+                 RowBox[{"nn", ",", "n"}], "]"}]}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"f", "=", 
+                 RowBox[{"N", "@", 
+                  RowBox[{"freq", "[", 
+                   RowBox[{"c", ",", "a", ",", "b", ",", "m", ",", "n"}], 
+                   "]"}]}]}], ";", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"Cos", "[", 
+                  FractionBox[
+                   RowBox[{"m", " ", "Pi", " ", "x"}], 
+                   RowBox[{"a", "/", "2"}]], "]"}], 
+                 RowBox[{"Cos", "[", 
+                  FractionBox[
+                   RowBox[{"n", " ", "Pi", " ", "y"}], 
+                   RowBox[{"a", "/", "2"}]], "]"}], 
+                 RowBox[{"If", "[", 
+                  RowBox[{
+                   RowBox[{"t0", "\[Equal]", "0"}], ",", "1", ",", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Cos", "[", 
+                    RowBox[{"f", " ", "t"}], "]"}], "+", 
+                    RowBox[{"Sin", "[", 
+                    RowBox[{"f", " ", "t"}], "]"}]}], ")"}]}], "]"}]}]}], ",",
+                "0"}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"m", ",", "1", ",", "5"}], "}"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"n", ",", "1", ",", "5"}], "}"}]}], "]"}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"freq", "[", 
+        RowBox[{"c_", ",", "a_", ",", "b_", ",", "m_", ",", "n_"}], "]"}], ":=", 
+       RowBox[{"Pi", " ", "c", 
+        SqrtBox[
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"(", 
+            FractionBox["m", "a"], ")"}], "2"], "+", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            FractionBox["n", "b"], ")"}], "2"]}]]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"--", 
+           RowBox[{"--", 
+            RowBox[{"--", 
+             RowBox[{"--", 
+              RowBox[{"--", 
+               RowBox[{"--", 
+                RowBox[{"--", 
+                 RowBox[{"--", 
+                  RowBox[{"--", 
+                   RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{"--", 
+                    RowBox[{
+                    "--", "--"}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}], 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"getW", "[", 
+        RowBox[{"c_", ",", "a_", ",", "b_"}], "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"m", ",", "n", ",", "g", ",", "wmn"}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"g", "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{"0", ",", 
+             RowBox[{"{", "6", "}"}], ",", 
+             RowBox[{"{", "6", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"wmn", "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"padIt2", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"N", "@", 
+                 RowBox[{"freq", "[", 
+                  RowBox[{"c", ",", "a", ",", "b", ",", "m", ",", "n"}], 
+                  "]"}]}], "/", 
+                RowBox[{"(", 
+                 RowBox[{"2", "*", "Pi"}], ")"}]}], ",", 
+               RowBox[{"{", 
+                RowBox[{"6", ",", "2"}], "}"}]}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"m", ",", "1", ",", "5"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"n", ",", "1", ",", "5"}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ",", "All"}], "]"}], "]"}], "=", 
+           RowBox[{"{", 
+            RowBox[{
+            "\"\<\>\"", ",", "1", ",", "2", ",", "3", ",", "4", ",", "5"}], 
+            "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{"All", ",", "1"}], "]"}], "]"}], "=", 
+           RowBox[{"{", 
+            RowBox[{
+            "\"\<\>\"", ",", "1", ",", "2", ",", "3", ",", "4", ",", "5"}], 
+            "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{
+              RowBox[{"2", ";;"}], ",", 
+              RowBox[{"2", ";;"}]}], "]"}], "]"}], "=", "wmn"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ",", "1"}], "]"}], "]"}], "=", 
+           RowBox[{"Style", "[", 
+            RowBox[{"\"\<n\\\\m\>\"", ",", "Italic"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Grid", "[", 
+           RowBox[{"g", ",", 
+            RowBox[{"Frame", "\[Rule]", "All"}], ",", 
+            RowBox[{"FrameStyle", "->", 
+             RowBox[{"Directive", "[", 
+              RowBox[{
+               RowBox[{"Thickness", "[", ".001", "]"}], ",", "Gray"}], 
+              "]"}]}], ",", 
+            RowBox[{"Spacings", "\[Rule]", 
+             RowBox[{"{", 
+              RowBox[{".8", ",", ".8"}], "}"}]}]}], "]"}]}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", "}"}]}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.7534623827111845`*^9, 3.7534624072681065`*^9}, {
+   3.753462466666404*^9, 3.7534625074087324`*^9}, {3.7534625508936405`*^9, 
+   3.7534625670364647`*^9}, {3.753462632554144*^9, 3.753462642203353*^9}, {
+   3.7534626970434103`*^9, 3.7534627019520283`*^9}, {3.7534665083763943`*^9, 
+   3.753466561775096*^9}, 3.753466734374213*^9, {3.753467893865324*^9, 
+   3.75346794985085*^9}, 3.753468004929843*^9, {3.753468265026501*^9, 
+   3.7534682855534987`*^9}, {3.7534683229644995`*^9, 3.75346832483946*^9}, {
+   3.753468366745491*^9, 3.753468422505453*^9}, {3.7534686460425653`*^9, 
+   3.7534687212464714`*^9}, 3.753468783720889*^9, {3.7534689421220493`*^9, 
+   3.7534689432220507`*^9}},
+ CellLabel->"In[26]:=",ExpressionUUID->"a6c19766-f6d1-4cf4-aa68-88b38de6e800"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a0$$ = 100, $CellContext`b0$$ = 
+    100, $CellContext`color$$ = 1, $CellContext`contoursLines$$ = 
+    10, $CellContext`m0$$ = {1}, $CellContext`meshLines$$ = 
+    10, $CellContext`n0$$ = {1}, $CellContext`opacity$$ = 
+    0.8, $CellContext`plotType$$ = "3D", $CellContext`t0$$ = 
+    0, $CellContext`tension$$ = 0.1, $CellContext`yMax$$ = 
+    1.6, $CellContext`\[Rho]0$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[
+       Text[
+        Grid[{{
+           Style[
+            TraditionalForm[Defer[D[
+                 $CellContext`u[$CellContext`x, $CellContext`y, \
+$CellContext`t], {$CellContext`x, 2}] + D[
+                 $CellContext`u[$CellContext`x, $CellContext`y, \
+$CellContext`t], {$CellContext`y, 2}]] == Defer[HoldForm[1/$CellContext`c^2] D[
+                 $CellContext`u[$CellContext`x, $CellContext`y, \
+$CellContext`t], {$CellContext`t, 2}]]], 14], SpanFromLeft}, {
+           Grid[{{
+              Row[{
+                Style[
+                 TraditionalForm[
+                  
+                  HoldForm[$CellContext`\[Lambda] = $CellContext`c Pi 
+                    Sqrt[$CellContext`m^2/$CellContext`a^2 + \
+$CellContext`n^2/$CellContext`b^2]]], 14], 
+                Spacer[3], "(hz)"}]}}, Alignment -> Center, 
+            Spacings -> {0.1, 0.1}]}, {
+           Grid[{{
+              Grid[{{
+                 Style["T", Italic, 12], 
+                 Manipulator[
+                  
+                  Dynamic[$CellContext`tension$$, {$CellContext`tension$$ = \
+#}& ], {0.1, 10, 0.1}, ImageSize -> Small, ContinuousAction -> True], 
+                 Dynamic[
+                  $CellContext`padIt2[$CellContext`tension$$, {3, 1}]], 
+                 "N/mm"}, {
+                 Style[$CellContext`\[Rho], Italic, 12], 
+                 Manipulator[
+                  
+                  Dynamic[$CellContext`\[Rho]0$$, {$CellContext`\[Rho]0$$ = \
+#}& ], {0.1, 2, 0.1}, ImageSize -> Small, ContinuousAction -> True], 
+                 Dynamic[
+                  $CellContext`padIt2[$CellContext`\[Rho]0$$, {2, 1}]], 
+                 "kg/\!\(\*SuperscriptBox[\(mm\), \(2\)]\)"}, {
+                 Style["a", Italic, 12], 
+                 Manipulator[
+                  Dynamic[$CellContext`a0$$, {$CellContext`a0$$ = #}& ], {10, 
+                  1000, 1}, ImageSize -> Small, ContinuousAction -> True], 
+                 Dynamic[
+                  $CellContext`padIt2[$CellContext`a0$$, 4]], "mm"}, {
+                 Style["b", Italic, 12], 
+                 Manipulator[
+                  Dynamic[$CellContext`b0$$, {$CellContext`b0$$ = #}& ], {10, 
+                  1000, 1}, ImageSize -> Small, ContinuousAction -> True], 
+                 Dynamic[
+                  $CellContext`padIt2[$CellContext`b0$$, 4]], "mm"}}, 
+               Spacings -> {0.4, 0}, Alignment -> Left]}}, 
+            Spacings -> {0.5, 0.6}, Alignment -> Center], SpanFromLeft}, {
+           Grid[{{
+              Grid[{{
+                 Item[
+                  Style["modes to excite", 12], Alignment -> Center], 
+                 SpanFromLeft}, {
+                 Grid[{{
+                    Style["m", Italic, 12], 
+                    TogglerBar[
+                    Dynamic[$CellContext`m0$$, {$CellContext`m0$$ = #}& ], {1,
+                     2, 3, 4, 5}]}, {
+                    Style["n", Italic, 12], 
+                    TogglerBar[
+                    Dynamic[$CellContext`n0$$, {$CellContext`n0$$ = #}& ], {1,
+                     2, 3, 4, 5}]}}, Spacings -> {0.3, 0.2}, Alignment -> 
+                  Left]}}, Spacings -> {0.5, 0.6}, Alignment -> Center]}}, 
+            Spacings -> {0.3, 0.6}, Alignment -> Center, Frame -> True, 
+            FrameStyle -> Directive[
+              Thickness[0.001], 
+              GrayLevel[0.5]]]}, {
+           Grid[{{
+              Grid[{{
+                 Text["contour lines"], 
+                 Manipulator[
+                  
+                  Dynamic[$CellContext`contoursLines$$, \
+{$CellContext`contoursLines$$ = #}& ], {1, 16, 1}, ImageSize -> Small, 
+                  ContinuousAction -> True], 
+                 Dynamic[
+                  $CellContext`padIt2[$CellContext`contoursLines$$, 2]], ""}},
+                Spacings -> {0.3, 0.1}, Alignment -> Left]}}, 
+            Spacings -> {0.5, 0.6}, Alignment -> Center, Frame -> False], 
+           SpanFromLeft}}, Alignment -> Center, Spacings -> {0.5, 0.4}, Frame -> 
+         True, FrameStyle -> Directive[
+           Thickness[0.001], 
+           GrayLevel[0.5]]]]], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`color$$], 1}, 0}, {{
+       Hold[$CellContext`tension$$], 0.1}, 0}, {{
+       Hold[$CellContext`\[Rho]0$$], 1}, 0}, {{
+       Hold[$CellContext`opacity$$], 0.8}, 0}, {{
+       Hold[$CellContext`yMax$$], 1.6}, 0}, {{
+       Hold[$CellContext`t0$$], 0}, 0}, {{
+       Hold[$CellContext`a0$$], 100}, 0}, {{
+       Hold[$CellContext`b0$$], 100}, 0}, {{
+       Hold[$CellContext`m0$$], {1}}, 0}, {{
+       Hold[$CellContext`n0$$], {1}}, 0}, {{
+       Hold[$CellContext`meshLines$$], 10}, 0}, {{
+       Hold[$CellContext`plotType$$], "3D"}, 0}, {{
+       Hold[$CellContext`contoursLines$$], 10}, 0}}, Typeset`size$$ = {
+    391., {216., 222.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a0$$ = 100, $CellContext`b0$$ = 
+        100, $CellContext`color$$ = 1, $CellContext`contoursLines$$ = 
+        10, $CellContext`m0$$ = {1}, $CellContext`meshLines$$ = 
+        10, $CellContext`n0$$ = {1}, $CellContext`opacity$$ = 
+        0.8, $CellContext`plotType$$ = "3D", $CellContext`t0$$ = 
+        0, $CellContext`tension$$ = 0.1, $CellContext`yMax$$ = 
+        1.6, $CellContext`\[Rho]0$$ = 1}, "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      Module[{$CellContext`xx$, $CellContext`yy$, $CellContext`opt$ = {
+          PerformanceGoal -> "Quality", ImageMargins -> 
+           1}, $CellContext`r$, $CellContext`r0$, $CellContext`c0$, \
+$CellContext`a00$, $CellContext`b00$, $CellContext`color0$}, $CellContext`c0$ = 
+         Sqrt[$CellContext`tension$$ (1000/($CellContext`\[Rho]0$$ 
+            10^6))]; $CellContext`a00$ = $CellContext`a0$$/
+          1000; $CellContext`b00$ = $CellContext`b0$$/
+          1000; $CellContext`r$ = $CellContext`w[$CellContext`x, \
+$CellContext`y, $CellContext`a00$, $CellContext`b00$, $CellContext`m0$$, \
+$CellContext`n0$$, $CellContext`c0$, $CellContext`t, $CellContext`t0$$]; \
+$CellContext`r0$ = 
+         ReplaceAll[$CellContext`r$, {$CellContext`t -> $CellContext`t0$$, \
+$CellContext`x -> $CellContext`xx$, $CellContext`y -> $CellContext`yy$}]; 
+        Which[$CellContext`color$$ == 1, $CellContext`color0$ = 
+          Automatic, $CellContext`color$$ == 2, $CellContext`color0$ = 
+          ColorData["TemperatureMap"][#3]& , $CellContext`color$$ == 
+          3, $CellContext`color0$ = 
+          Function[{$CellContext`x, $CellContext`y, $CellContext`z}, 
+            Hue[$CellContext`z]], $CellContext`color$$ == 
+          4, $CellContext`color0$ = "BlueGreenYellow", $CellContext`color$$ == 
+          5, $CellContext`color0$ = "Rainbow", $CellContext`color$$ == 
+          6, $CellContext`color0$ = Function[{$CellContext`x, $CellContext`y}, 
+            ColorData["NeonColors"][$CellContext`y]]]; 
+        Grid[{{$CellContext`plotType$$ == "contour", 
+            ContourPlot[
+             
+             Evaluate[$CellContext`r0$], {$CellContext`xx$, 
+              0, $CellContext`a00$}, {$CellContext`yy$, 0, $CellContext`b00$}, 
+             Evaluate[$CellContext`opt$], ImageSize -> {350, 436}, 
+             FrameLabel -> {{$CellContext`y, None}, {$CellContext`x, None}}, 
+             ColorFunction -> "Pastel", ImagePadding -> 30, FrameTicksStyle -> 
+             8, Contours -> $CellContext`contoursLines$$], Null, 
+            SpanFromLeft}}, Alignment -> Center, Spacings -> 0]], 
+      "Specifications" :> {
+        Text[
+         Grid[{{
+            Style[
+             TraditionalForm[Defer[D[
+                  $CellContext`u[$CellContext`x, $CellContext`y, \
+$CellContext`t], {$CellContext`x, 2}] + D[
+                  $CellContext`u[$CellContext`x, $CellContext`y, \
+$CellContext`t], {$CellContext`y, 2}]] == Defer[HoldForm[1/$CellContext`c^2] D[
+                  $CellContext`u[$CellContext`x, $CellContext`y, \
+$CellContext`t], {$CellContext`t, 2}]]], 14], SpanFromLeft}, {
+            Grid[{{
+               Row[{
+                 Style[
+                  TraditionalForm[
+                   
+                   HoldForm[$CellContext`\[Lambda] = $CellContext`c Pi 
+                    Sqrt[$CellContext`m^2/$CellContext`a^2 + \
+$CellContext`n^2/$CellContext`b^2]]], 14], 
+                 Spacer[3], "(hz)"}]}}, Alignment -> Center, 
+             Spacings -> {0.1, 0.1}]}, {
+            Grid[{{
+               Grid[{{
+                  Style["T", Italic, 12], 
+                  Manipulator[
+                   
+                   Dynamic[$CellContext`tension$$, {$CellContext`tension$$ = \
+#}& ], {0.1, 10, 0.1}, ImageSize -> Small, ContinuousAction -> True], 
+                  Dynamic[
+                   $CellContext`padIt2[$CellContext`tension$$, {3, 1}]], 
+                  "N/mm"}, {
+                  Style[$CellContext`\[Rho], Italic, 12], 
+                  Manipulator[
+                   
+                   Dynamic[$CellContext`\[Rho]0$$, {$CellContext`\[Rho]0$$ = \
+#}& ], {0.1, 2, 0.1}, ImageSize -> Small, ContinuousAction -> True], 
+                  Dynamic[
+                   $CellContext`padIt2[$CellContext`\[Rho]0$$, {2, 1}]], 
+                  "kg/\!\(\*SuperscriptBox[\(mm\), \(2\)]\)"}, {
+                  Style["a", Italic, 12], 
+                  Manipulator[
+                   Dynamic[$CellContext`a0$$, {$CellContext`a0$$ = #}& ], {10,
+                    1000, 1}, ImageSize -> Small, ContinuousAction -> True], 
+                  Dynamic[
+                   $CellContext`padIt2[$CellContext`a0$$, 4]], "mm"}, {
+                  Style["b", Italic, 12], 
+                  Manipulator[
+                   Dynamic[$CellContext`b0$$, {$CellContext`b0$$ = #}& ], {10,
+                    1000, 1}, ImageSize -> Small, ContinuousAction -> True], 
+                  Dynamic[
+                   $CellContext`padIt2[$CellContext`b0$$, 4]], "mm"}}, 
+                Spacings -> {0.4, 0}, Alignment -> Left]}}, 
+             Spacings -> {0.5, 0.6}, Alignment -> Center], SpanFromLeft}, {
+            Grid[{{
+               Grid[{{
+                  Item[
+                   Style["modes to excite", 12], Alignment -> Center], 
+                  SpanFromLeft}, {
+                  Grid[{{
+                    Style["m", Italic, 12], 
+                    TogglerBar[
+                    Dynamic[$CellContext`m0$$, {$CellContext`m0$$ = #}& ], {1,
+                     2, 3, 4, 5}]}, {
+                    Style["n", Italic, 12], 
+                    TogglerBar[
+                    Dynamic[$CellContext`n0$$, {$CellContext`n0$$ = #}& ], {1,
+                     2, 3, 4, 5}]}}, Spacings -> {0.3, 0.2}, Alignment -> 
+                   Left]}}, Spacings -> {0.5, 0.6}, Alignment -> Center]}}, 
+             Spacings -> {0.3, 0.6}, Alignment -> Center, Frame -> True, 
+             FrameStyle -> Directive[
+               Thickness[0.001], 
+               GrayLevel[0.5]]]}, {
+            Grid[{{
+               Grid[{{
+                  Text["contour lines"], 
+                  Manipulator[
+                   
+                   Dynamic[$CellContext`contoursLines$$, \
+{$CellContext`contoursLines$$ = #}& ], {1, 16, 1}, ImageSize -> Small, 
+                   ContinuousAction -> True], 
+                  Dynamic[
+                   $CellContext`padIt2[$CellContext`contoursLines$$, 2]], 
+                  ""}}, Spacings -> {0.3, 0.1}, Alignment -> Left]}}, 
+             Spacings -> {0.5, 0.6}, Alignment -> Center, Frame -> False], 
+            SpanFromLeft}}, Alignment -> Center, Spacings -> {0.5, 0.4}, 
+          Frame -> True, FrameStyle -> Directive[
+            Thickness[0.001], 
+            GrayLevel[0.5]]]], {{$CellContext`color$$, 1}, 0, ControlType -> 
+         None}, {{$CellContext`tension$$, 0.1}, 0, ControlType -> 
+         None}, {{$CellContext`\[Rho]0$$, 1}, 0, ControlType -> 
+         None}, {{$CellContext`opacity$$, 0.8}, 0, ControlType -> 
+         None}, {{$CellContext`yMax$$, 1.6}, 0, ControlType -> 
+         None}, {{$CellContext`t0$$, 0}, 0, ControlType -> 
+         None}, {{$CellContext`a0$$, 100}, 0, ControlType -> 
+         None}, {{$CellContext`b0$$, 100}, 0, ControlType -> 
+         None}, {{$CellContext`m0$$, {1}}, 0, ControlType -> 
+         None}, {{$CellContext`n0$$, {1}}, 0, ControlType -> 
+         None}, {{$CellContext`meshLines$$, 10}, 0, ControlType -> 
+         None}, {{$CellContext`plotType$$, "3D"}, 0, ControlType -> 
+         None}, {{$CellContext`contoursLines$$, 10}, 0, ControlType -> None}},
+       "Options" :> {
+       SynchronousUpdating -> False, Alignment -> Center, ImageMargins -> 2, 
+        FrameMargins -> 1, SynchronousInitialization -> True, 
+        ContinuousAction -> False, Alignment -> Center, Paneled -> True, 
+        Frame -> False, AutorunSequencing -> Automatic, ControlPlacement -> 
+        Left}, "DefaultOptions" :> {}],
+     ImageSizeCache->{634., {241., 247.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`integerStrictPositive = And[
+          IntegerQ[#], # > 0]& ; $CellContext`integerPositive = And[
+          IntegerQ[#], # >= 0]& ; $CellContext`numericStrictPositive = And[
+          Element[#, Reals], # > 0]& ; $CellContext`numericPositive = And[
+          Element[#, Reals], # >= 0]& ; $CellContext`numericStrictNegative = 
+        And[
+          Element[#, Reals], # < 0]& ; $CellContext`numericNegative = And[
+          Element[#, Reals], # <= 0]& ; $CellContext`bool = 
+        Element[#, Booleans]& ; $CellContext`numeric = 
+        Element[#, Reals]& ; $CellContext`integer = 
+        Element[#, Integers]& ; $CellContext`padIt1[
+          PatternTest[
+           Pattern[$CellContext`v, 
+            Blank[]], $CellContext`numeric], 
+          Pattern[$CellContext`f, 
+           Blank[List]]] := AccountingForm[
+          Chop[$CellContext`v], $CellContext`f, NumberSigns -> {"-", "+"}, 
+          NumberPadding -> {"0", "0"}, SignPadding -> 
+          True]; $CellContext`padIt2[
+          PatternTest[
+           Pattern[$CellContext`v, 
+            Blank[]], $CellContext`numeric], 
+          Pattern[$CellContext`f, 
+           Blank[List]]] := AccountingForm[
+          Chop[$CellContext`v], $CellContext`f, NumberSigns -> {"", ""}, 
+          NumberPadding -> {"0", "0"}, SignPadding -> 
+          True]; $CellContext`padIt2[
+          PatternTest[
+           Pattern[$CellContext`v, 
+            Blank[]], $CellContext`numeric], 
+          Pattern[$CellContext`f, 
+           Blank[Integer]]] := AccountingForm[
+          Chop[$CellContext`v], $CellContext`f, NumberSigns -> {"", ""}, 
+          NumberPadding -> {"0", "0"}, SignPadding -> True]; $CellContext`w[
+          Pattern[$CellContext`x, 
+           Blank[]], 
+          Pattern[$CellContext`y, 
+           Blank[]], 
+          Pattern[$CellContext`a, 
+           Blank[]], 
+          Pattern[$CellContext`b, 
+           Blank[]], 
+          Pattern[$CellContext`mm, 
+           Blank[]], 
+          Pattern[$CellContext`nn, 
+           Blank[]], 
+          Pattern[$CellContext`c, 
+           Blank[]], 
+          Pattern[$CellContext`t, 
+           Blank[]], 
+          Pattern[$CellContext`t0, 
+           Blank[]]] := 
+        Module[{$CellContext`m, $CellContext`n, $CellContext`f}, 
+          Sum[
+           Sum[
+            If[
+             And[
+              MemberQ[$CellContext`mm, $CellContext`m], 
+              MemberQ[$CellContext`nn, $CellContext`n]], $CellContext`f = N[
+                $CellContext`freq[$CellContext`c, $CellContext`a, \
+$CellContext`b, $CellContext`m, $CellContext`n]]; 
+             Cos[$CellContext`m Pi $CellContext`x/($CellContext`a/2)] 
+              Cos[$CellContext`n Pi $CellContext`y/($CellContext`a/2)] 
+              If[$CellContext`t0 == 0, 1, Cos[$CellContext`f $CellContext`t] + 
+                Sin[$CellContext`f $CellContext`t]], 0], {$CellContext`m, 1, 
+             5}], {$CellContext`n, 1, 5}]]; $CellContext`freq[
+          Pattern[$CellContext`c, 
+           Blank[]], 
+          Pattern[$CellContext`a, 
+           Blank[]], 
+          Pattern[$CellContext`b, 
+           Blank[]], 
+          Pattern[$CellContext`m, 
+           Blank[]], 
+          Pattern[$CellContext`n, 
+           Blank[]]] := 
+        Pi $CellContext`c 
+         Sqrt[($CellContext`m/$CellContext`a)^2 + \
+($CellContext`n/$CellContext`b)^2]; $CellContext`getW[
+          Pattern[$CellContext`c, 
+           Blank[]], 
+          Pattern[$CellContext`a, 
+           Blank[]], 
+          Pattern[$CellContext`b, 
+           Blank[]]] := 
+        Module[{$CellContext`m, $CellContext`n, $CellContext`g, \
+$CellContext`wmn}, $CellContext`g = Table[0, {6}, {6}]; $CellContext`wmn = 
+           Table[
+             $CellContext`padIt2[N[
+                $CellContext`freq[$CellContext`c, $CellContext`a, \
+$CellContext`b, $CellContext`m, $CellContext`n]]/(2 Pi), {6, 
+              2}], {$CellContext`m, 1, 5}, {$CellContext`n, 1, 5}]; 
+          Part[$CellContext`g, 1, All] = {"", 1, 2, 3, 4, 5}; 
+          Part[$CellContext`g, All, 1] = {"", 1, 2, 3, 4, 5}; 
+          Part[$CellContext`g, 
+             Span[2, All], 
+             Span[2, All]] = $CellContext`wmn; 
+          Part[$CellContext`g, 1, 1] = Style["n\\m", Italic]; 
+          Grid[$CellContext`g, Frame -> All, FrameStyle -> Directive[
+              Thickness[0.001], Gray], Spacings -> {0.8, 0.8}]]; Null}; 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.7534687223234777`*^9, 3.753468787625953*^9, 3.753468992593017*^9, {
+   3.75347052536203*^9, 3.7534705276760287`*^9}},
+ CellLabel->"Out[26]=",ExpressionUUID->"88fba063-c8bd-4469-b1f9-b116dbc28b3b"]
+}, Open  ]]
+},
+WindowSize->{1181, 988},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 39296, 959, 3860, "Input",ExpressionUUID->"a6c19766-f6d1-4cf4-aa68-88b38de6e800"],
+Cell[39879, 983, 18907, 384, 540, "Output",ExpressionUUID->"88fba063-c8bd-4469-b1f9-b116dbc28b3b"]
+}, Open  ]]
+}
+]
+*)
+
